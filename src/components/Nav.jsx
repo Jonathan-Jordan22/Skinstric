@@ -4,6 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
   const location = useLocation();
+  const navText =
+    location.pathname === "/" || location.pathname === "/testing"
+      ? "INTRO"
+      : "ANALYSIS";
+
   return (
     <nav>
       <div className="nav__logo--wrapper">
@@ -11,7 +16,7 @@ const Nav = () => {
           SKINSTRIC
         </Link>
         <img src={LeftBracket} alt="" className="bracket" />
-        <p className="intro">INTRO</p>
+        <p className="intro">{navText}</p>
         <img src={RightBracket} alt="" className="bracket" />
       </div>
       {location.pathname === "/" && (

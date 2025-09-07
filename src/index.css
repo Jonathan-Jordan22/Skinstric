@@ -34,7 +34,7 @@ NAVIGATION BAR
 
 nav {
   display: flex;
-  height: 64px;
+  height: 40px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
@@ -584,6 +584,358 @@ RESULT PAGE
 .gallery-line {
   bottom: 20%;
   left: 20%;
+}
+
+/*
+
+ANALYSIS PAGE
+
+*/
+
+.analysis-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 64px - 0.75rem);
+  width: 100%;
+}
+
+.analysis-header {
+  position: absolute;
+  top: 0;
+  left: 2.5vw;
+}
+
+.analysis-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.analysis-header p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #555;
+  margin: 0.25rem 0;
+}
+
+.analysis-diamond-wrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.analysis-diamond-wrapper .dotted-square {
+  position: absolute;
+  border: 2px dotted #999;
+  opacity: 0;
+  transform: rotate(45deg) scale(0.5);
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+.analysis-diamond-wrapper .dotted-square.visible {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+.analysis-diamond-wrapper .dotted-square.outermost {
+  width: 100%;
+  height: 100%;
+}
+
+.analysis-diamond-wrapper .dotted-square.outer {
+  width: 90%;
+  height: 90%;
+}
+
+.analysis-diamond-wrapper .dotted-square.inner {
+  width: 80%;
+  height: 80%;
+}
+
+.diamond-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 60%;
+  height: 60%;
+  transform: rotate(45deg);
+}
+
+.analysis-card {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.analysis-card .card-content {
+  transform: rotate(-45deg);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 10px;
+}
+
+.analysis-card:hover {
+  transform: scale(1.05);
+}
+
+.analysis-card.demographics {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.analysis-card.demographics:hover {
+  background-color: #d1d1d1;
+}
+
+.analysis-card.disabled,
+.testing-bottom-right.disabled {
+  cursor: not-allowed;
+}
+
+/*
+
+DEMOGRAPHICS PAGE
+
+*/
+
+@property --percentage {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+.demographics-container {
+  margin: 0 2rem;
+  height: calc(100vh - 64px - 2.25rem);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.demographics-header h1 {
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.demographics-header h2 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.demographics-header p {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: #1A1B1C;
+  margin: 0 0 8px;
+}
+
+.demographics-content {
+  display: flex;
+  flex-grow: 1;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.demographics-sidebar {
+  width: 220px; 
+  flex-shrink: 0;
+}
+
+.sidebar-item {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #F3F3F4;
+  border-top: 1px solid #1A1B1C;
+  margin-bottom: 1rem;
+}
+
+.sidebar-item.active {
+  background-color: #1A1B1C;
+  color: #FCFCFC;
+}
+
+.sidebar-item:not(.active):hover {
+  background-color: black;
+}
+
+.sidebar-item .item-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sidebar-item .item-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 0.25rem;
+}
+
+.details-view {
+  display: flex;
+  flex-grow: 1;
+  padding-top: 1rem;
+  align-items: center;
+  gap: 4rem;
+  background-color: #F3F3F4;
+  border-top: 1px solid #1A1B1C;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.details-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding-top: 1rem;
+}
+
+.details-left h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.circle-chart {
+  --percentage: 0%;
+  width: 384px;
+  height: 384px;
+  border-radius: 50%;
+  background: conic-gradient(#1A1B1C var(--percentage), #e0e0e0 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  align-self: flex-end;
+  transition: --percentage 0.5s ease-in-out;
+}
+
+.circle-chart::before {
+  content: '';
+  position: absolute;
+  width: 97%;
+  height: 97%;
+  background: #F3F3F4;
+  border-radius: 50%;
+}
+
+.chart-value {
+  position: relative;
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.details-right {
+  width: 350px;
+  flex-shrink: 0;
+  background-color: #F3F3F4;
+  border-top: 1px solid #1A1B1C;
+  padding: 1rem;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1A1B1C;
+}
+
+.confidence-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.confidence-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.confidence-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.confidence-list li.selected {
+  background-color: #1A1B1C;
+  color: white;
+}
+
+.confidence-list li span:first-child::before {
+  content: '◇';
+  margin-right: 0.75rem;
+  font-size: 0.8rem;
+}
+
+.confidence-list li.selected span:first-child::before {
+  content: '◆';
+}
+
+/* Footer */
+.demographics-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.demographics-footer .testing-bottom-left {
+  position: static;
+}
+
+.footer-note {
+  font-size: 16px;
+  color: #A0A4AB;
+  margin: 0 0 4px;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.reset-btn, .confirm-btn {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: 1px solid #1A1B1C;
+  cursor: not-allowed;
+}
+
+.reset-btn {
+  background-color: white;
+  color: #1A1B1C;
+}
+
+.confirm-btn {
+  background-color: #1A1B1C;
+  color: white;
 }
 
 /* 

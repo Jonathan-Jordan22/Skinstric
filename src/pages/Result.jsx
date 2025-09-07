@@ -24,9 +24,7 @@ const Result = () => {
       img.src = e.target.result;
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 800; // Set a maximum width for the image
-
-        // Calculate the new dimensions
+        const MAX_WIDTH = 800; 
         const scaleFactor = MAX_WIDTH / img.width;
         canvas.width = MAX_WIDTH;
         canvas.height = img.height * scaleFactor;
@@ -34,11 +32,9 @@ const Result = () => {
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-        // Get the resized image as a Base64 string with JPEG compression
         const resizedBase64 = canvas.toDataURL("image/jpeg", 0.7);
         const base64String = resizedBase64.split(",")[1];
 
-        // Now submit the smaller, resized image
         submitImage(base64String);
       };
       img.onerror = () => setError("The selected file is not a valid image.");
@@ -61,12 +57,10 @@ const Result = () => {
 
       const response = await axios.post(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
-        // Use the correct lowercase 'image' key
         { image: formattedBase64 }
       );
 
-      // On success, navigate to the demographics page with the data
-      navigate("/demographics", {
+      navigate("/analysis", {
         state: { demographics: response.data.data },
       });
     } catch (err) {
