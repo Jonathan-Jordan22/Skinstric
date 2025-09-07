@@ -57,19 +57,14 @@ const Result = () => {
         );
       }
 
-      // --- FIX ---
-      // Remove any newlines or whitespace from the Base64 string.
       const formattedBase64 = base64Image.replace(/(\r\n|\n|\r)/gm, "").trim();
-
-      console.log("Formatted Base64 String being sent:", formattedBase64);
 
       const response = await axios.post(
         "https://us-central1-frontend-simplified.cloudfunctions.net/skinstricPhaseTwo",
-        // Send the cleaned-up string
-        { Image: formattedBase64 }
+        // Use the correct lowercase 'image' key
+        { image: formattedBase64 }
       );
 
-      console.log("API Success:", response.data);
       // On success, navigate to the demographics page with the data
       navigate("/demographics", {
         state: { demographics: response.data.data },
