@@ -8,9 +8,9 @@ const Nav = () => {
     location.pathname === "/" || location.pathname === "/testing"
       ? "INTRO"
       : "ANALYSIS";
-
+  const isCameraPage = location.pathname === '/camera';
   return (
-    <nav>
+    <nav className={isCameraPage ? 'nav--transparent' : ''}>
       <div className="nav__logo--wrapper">
         <Link to="/" className="nav__logo">
           SKINSTRIC
