@@ -5,6 +5,7 @@ import Testing from "./pages/Testing";
 import Result from "./pages/Result";
 import Analysis from "./pages/Analysis";
 import Summary from "./pages/Summary";
+import Camera from "./pages/Camera";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/testing" element={<Testing />} />
         <Route path="/result" element={<Result />} />
+        <Route path="/camera" element={<Camera />} />
         <Route path="/analysis" element={<Analysis />} />
         <Route path="/summary" element={<Summary />} />
       </Routes>

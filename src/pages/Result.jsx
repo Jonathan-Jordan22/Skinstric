@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Arrow from "../components/svgs/Arrow.svg";
 import CameraIcon from "../components/svgs/camera.svg";
@@ -12,6 +12,7 @@ const Result = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const galleryInputRef = useRef(null);
+  const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -24,7 +25,7 @@ const Result = () => {
       img.src = e.target.result;
       img.onload = () => {
         const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 800; 
+        const MAX_WIDTH = 800;
         const scaleFactor = MAX_WIDTH / img.width;
         canvas.width = MAX_WIDTH;
         canvas.height = img.height * scaleFactor;
@@ -40,6 +41,17 @@ const Result = () => {
       img.onerror = () => setError("The selected file is not a valid image.");
     };
     reader.onerror = () => setError("Failed to read the file.");
+  };
+
+  const requestCameraAndNavigate = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream.getTracks().forEach((track) => track.stop());
+      navigate("/camera");
+    } catch (err) {
+      console.error("Camera access denied.", err);
+      setShowPermissionModal(false);
+    }
   };
 
   const submitImage = async (base64Image) => {
@@ -89,7 +101,10 @@ const Result = () => {
         </div>
       ) : (
         <div className="upload-options-wrapper">
-          <div className="upload-option placeholder">
+          <div
+            className="upload-option"
+            onClick={() => setShowPermissionModal(true)}
+          >
             <div className="rotating-square outer"></div>
             <div className="rotating-square middle"></div>
             <div className="rotating-square inner"></div>
@@ -100,6 +115,33 @@ const Result = () => {
             <p className="upload-label camera-label">
               ALLOW A.I. TO SCAN YOUR FACE
             </p>
+
+            {showPermissionModal && (
+              <div className="permission-modal">
+                <div className="modal-pointer"></div>
+                <div className="modal-content">
+                  <p>ALLOW A.I. TO ACCESS YOUR CAMERA</p>
+                  <div className="modal-buttons">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowPermissionModal(false);
+                      }}
+                    >
+                      DENY
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        requestCameraAndNavigate();
+                      }}
+                    >
+                      ALLOW
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div
             className="upload-option"
