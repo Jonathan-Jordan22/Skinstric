@@ -17,25 +17,28 @@ const Camera = () => {
   useEffect(() => {
     const getCameraStream = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode: "user" },
         });
-        setStream(stream);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
+        setStream(mediaStream);
       } catch (err) {
         setError("Camera access was denied. Please enable it in your browser settings.");
       }
     };
     getCameraStream();
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current && stream) {
+      videoRef.current.srcObject = stream;
+    }
 
     return () => {
       if (stream) {
         stream.getTracks().forEach((track) => track.stop());
       }
     };
-  }, []);
+  }, [stream]);
 
   const handleTakePicture = () => {
     if (videoRef.current && canvasRef.current) {

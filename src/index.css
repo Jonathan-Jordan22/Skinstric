@@ -1073,6 +1073,19 @@ CAMERA PAGE
   font-weight: 600;
 }
 
+.camera-loading-container .rotating-square.outer {
+  width: 500px;
+  height: 500px;
+}
+.camera-loading-container .rotating-square.middle {
+  width: 400px;
+  height: 400px;
+}
+.camera-loading-container .rotating-square.inner {
+  width: 300px;
+  height: 300px;
+}
+
 .camera-footer {
   position: absolute;
   bottom: 15vh;
